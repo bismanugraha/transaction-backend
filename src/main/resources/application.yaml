@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: nutech
+
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:9900/transaction_nutech
+    username: root
+    password: root
+    name: transaction_nutech
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
