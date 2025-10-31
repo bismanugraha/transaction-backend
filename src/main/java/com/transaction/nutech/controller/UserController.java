@@ -1,10 +1,11 @@
 package com.transaction.nutech.controller;
 
+import com.transaction.nutech.model.request.TopUpRequest;
 import com.transaction.nutech.model.request.UserRequest;
 import com.transaction.nutech.model.response.GenericResponse;
 import com.transaction.nutech.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import static com.transaction.nutech.constant.Paths.*;
 
 @RestController
-public class AuthController {
+public class UserController {
 
     @Autowired
     UserService userService;
@@ -37,7 +38,7 @@ public class AuthController {
             path = PROFILE,
             method = RequestMethod.GET
     )
-    public ResponseEntity<?> profile(@RequestHeader(name = "Authorization") String authorization) throws Exception {
+    public ResponseEntity<?> profile(@RequestHeader(name = "Authorization") String authorization) {
         return userService.getProfile(authorization);
     }
 
@@ -61,5 +62,24 @@ public class AuthController {
             @RequestParam MultipartFile image
     ) throws Exception {
         return userService.updateImageProfile(authorization, image);
+    }
+
+    @RequestMapping(
+            path = GET_USER_BALANCE,
+            method = RequestMethod.GET
+    )
+    public ResponseEntity<?> getUserBalance(@RequestHeader(name = "Authorization") String authorization) {
+        return userService.getUserBalance(authorization);
+    }
+
+    @RequestMapping(
+            path = TOP_UP_BALANCE,
+            method = RequestMethod.POST
+    )
+    public ResponseEntity<?> topUp(
+            @RequestHeader(name = "Authorization") String authorization,
+            @Valid @RequestBody TopUpRequest topUpBalance
+    ) {
+        return userService.topUp(authorization, topUpBalance);
     }
 }

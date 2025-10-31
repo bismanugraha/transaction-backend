@@ -39,7 +39,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(REGISTER, LOGIN, IMAGE_UPDATE).permitAll()
+                        .requestMatchers(REGISTER, LOGIN, BANNER).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session ->
