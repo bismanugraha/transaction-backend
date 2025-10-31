@@ -2,12 +2,29 @@ spring:
   application:
     name: nutech
 
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:9900/transaction_nutech
-    username: root
-    password: root
-    name: transaction_nutech
+# Localhost
+#  datasource:
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:9900/transaction_nutech
+#    username: root
+#    password: root
+#    name: transaction_nutech
+
+# Production
+#  datasource:
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://root:TJSIwtCsGaEEXaDBjKgtvuQoEJqFXoEG@caboose.proxy.rlwy.net:50072/railway
+#    username: root
+#    password: xxxxxxxxxx
+#    name: transaction_nutech
+
+# Production Railway
+    datasource:
+      driverClassName: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
+      url: ${SPRING_DATASOURCE_URL}
+      username: ${SPRING_DATASOURCE_USERNAME}
+      password: ${SPRING_DATASOURCE_PASSWORD}
+      name: transaction_nutech
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
