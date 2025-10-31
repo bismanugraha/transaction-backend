@@ -4,7 +4,7 @@ spring:
 
 # Localhost
 #  datasource:
-#    driverClassName: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://localhost:9900/transaction_nutech
 #    username: root
 #    password: root
@@ -12,15 +12,15 @@ spring:
 
 # Production
 #  datasource:
-#    driverClassName: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://root:TJSIwtCsGaEEXaDBjKgtvuQoEJqFXoEG@caboose.proxy.rlwy.net:50072/railway
 #    username: root
-#    password: xxxxxxxxxx
+#    password: xxxxxxxx
 #    name: transaction_nutech
 
 # Production Railway
   datasource:
-    driverClassName: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
