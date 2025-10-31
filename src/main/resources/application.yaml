@@ -19,12 +19,12 @@ spring:
 #    name: transaction_nutech
 
 # Production Railway
-    datasource:
-      driverClassName: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
-      url: ${SPRING_DATASOURCE_URL}
-      username: ${SPRING_DATASOURCE_USERNAME}
-      password: ${SPRING_DATASOURCE_PASSWORD}
-      name: transaction_nutech
+  datasource:
+    driverClassName: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    name: transaction_nutech
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
