@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.transaction.nutech.constant.Paths.*;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -37,7 +39,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/login").permitAll()
+                        .requestMatchers(REGISTER, LOGIN, IMAGE_UPDATE).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session ->

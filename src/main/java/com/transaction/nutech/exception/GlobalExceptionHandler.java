@@ -15,4 +15,11 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(GenericResponse.error(400, ex.getMessage()));
     }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<GenericResponse<String>> handleUserNotFoundException(UserNotFoundException ex) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(GenericResponse.error(404, ex.getMessage()));
+    }
 }

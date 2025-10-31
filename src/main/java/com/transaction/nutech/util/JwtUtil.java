@@ -2,25 +2,27 @@ package com.transaction.nutech.util;
 
 import com.transaction.nutech.model.request.UserRequest;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.naming.AuthenticationException;
+import java.security.Key;
 import java.util.Date;
 import java.util.List;
 
 @Component
 public class JwtUtil {
-    private final String secret_key = "4FgUMoqGE8WTDOvYr1KT6PTmTAzurjSb6ZRW5OXcPlU=";
-    private long accessTokenValidity = 60*60*1000; // Millisecond
-
-    private final JwtParser jwtParser;
-
+    private final Key secretKey;
+    private final long accessTokenValidity;
     private final String TOKEN_HEADER = "Authorization";
     private final String TOKEN_PREFIX = "Bearer ";
 
-    public JwtUtil(){
-        this.jwtParser = Jwts.parser().setSigningKey(secret_key);
+    public JwtUtil(@Value("${jwt.secret}") String secretKey,
+                   @Value("${jwt.expiration}") long accessTokenValidity) {
+        this.secretKey = Keys.hmacShaKeyFor(secretKey.getBytes());
+        this.accessTokenValidity = accessTokenValidity;
     }
 
     public String createToken(UserRequest user) {
@@ -30,12 +32,16 @@ public class JwtUtil {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(tokenValidity)
-                .signWith(SignatureAlgorithm.HS256, secret_key)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    private Claims parseJwtClaims(String token) {
-        return jwtParser.parseClaimsJws(token).getBody();
+    public Claims parseJwtClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     public Claims resolveClaims(HttpServletRequest req) {

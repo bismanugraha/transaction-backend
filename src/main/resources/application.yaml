@@ -17,3 +17,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+jwt:
+  secret: "4FgUMoqGE8WTDOvYr1KT6PTmTAzurjSb6ZRW5OXcPlU="
+  expiration: 600000 # 10 Minute
+
+user:
+  url: "https://staging-url.com/image/"

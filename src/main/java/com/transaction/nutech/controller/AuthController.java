@@ -6,10 +6,8 @@ import com.transaction.nutech.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import static com.transaction.nutech.constant.Paths.*;
 
@@ -39,23 +37,29 @@ public class AuthController {
             path = PROFILE,
             method = RequestMethod.GET
     )
-    public ResponseEntity<?> profile(@RequestBody UserRequest user) {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> profile(@RequestHeader(name = "Authorization") String authorization) throws Exception {
+        return userService.getProfile(authorization);
     }
 
     @RequestMapping(
             path = PROFILE_UPDATE,
             method = RequestMethod.PUT
     )
-    public ResponseEntity<?> profileUpdate(@RequestBody UserRequest user) {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> profileUpdate(
+            @RequestHeader(name = "Authorization") String authorization,
+            @RequestBody UserRequest user
+    ) {
+        return userService.updateProfile(authorization, user);
     }
 
     @RequestMapping(
             path = IMAGE_UPDATE,
             method = RequestMethod.PUT
     )
-    public ResponseEntity<?> imageUpdate(@RequestBody UserRequest user) {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> imageUpdate(
+            @RequestHeader(name = "Authorization") String authorization,
+            @RequestParam MultipartFile image
+    ) throws Exception {
+        return userService.updateImageProfile(authorization, image);
     }
 }
